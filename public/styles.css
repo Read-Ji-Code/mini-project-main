@@ -1,0 +1,45 @@
+/* styles.css */
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffd700; /* Set your desired background color (yellow in this case) */
+}
+
+.container {
+    text-align: center;
+}
+
+article {
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: flex;
+    justify-content: space-around;
+}
+
+a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    color: #3498db;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #3498db;
+    color: #fff;
+}

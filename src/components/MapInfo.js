@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MapList from "./MapList"; // Assuming MapList is in a separate file
-
+import MapList from "./MapList"; 
 const MapInfo = () => {
   const [mapInfo, setMapInfo] = useState(null);
 

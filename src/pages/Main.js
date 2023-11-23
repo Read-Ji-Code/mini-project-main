@@ -1,6 +1,7 @@
 import React from "react";
 import Header2 from "./Header2";
-import Section from "./Section";
+import Map from "../components/Map"
+import MapList from "../components/MapList";
 const Main = () => {
 
 
@@ -9,13 +10,19 @@ const Main = () => {
 
     
     return (
+<div>      
     <div>
         <Header2/>
-        <div>
-        <Section/>
-        </div>
     </div>
 
+    <div>
+        <Map/>
+    </div>
+
+    <div>
+        <MapList/>
+    </div>
+</div>    
     );
 };
 

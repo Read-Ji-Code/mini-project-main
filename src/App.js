@@ -5,20 +5,20 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Main from './pages/Main';
 //import GetMapInfo from './components/GetMapInfo';
-import MapInfo from './components/MapInfo';
+// import MapInfo from './components/MapInfo';
 
 function App() {
   return (
-    // <BrowserRouter>
-        
-    //     <Routes>
-    //       <Route path ="/" element={<Main/>}/>
-    //       <Route path ="/login" element={<Login/>}/>yy
-    //       <Route path="/signup" element={<SignUp/>}/>
-    //     </Routes>
-    // </BrowserRouter>
+    <BrowserRouter>
+        <Routes>
+          <Route path ="/" element={<Main/>}/>
+          <Route path ="/login" element={<Login/>}/>yy
+          <Route path="/signup" element={<SignUp/>}/>
+        </Routes>
+    </BrowserRouter>
     //<GetMapInfo/>
-    <MapInfo/>
+    //<MapInfo/>
+
   );
 }
 

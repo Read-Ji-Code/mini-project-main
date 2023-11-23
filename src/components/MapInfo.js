@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 
 const MapInfo = () => {
-  const [mapInfo, setMapInfo] = useState(null);
+  const [mapInfo, setMapInfo] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://10.125.121.222:8080/mapInfoEng', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+    const fetchData = () => {
+      fetch('http://10.125.121.222:8080/mapInfoEng', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          setMapInfo(data);
+          console.log('데이터 요청 성공:', data);
+        })
+        .catch(error => {
+          console.error('데이터 요청 실패 : ', error.message);
         });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setMapInfo(data);
-        console.log('데이터 요청 성공:', data);
-      } catch (error) {
-        console.error('데이터 요청 실패 : ', error.message);
-      }
     };
 
     fetchData();
@@ -30,19 +31,12 @@ const MapInfo = () => {
 
   return (
     <div>
-      {mapInfo ? (
-        <div>
-          {mapInfo.map(map => (
-            <div key={map.uc_seq}>
-              <p>Title : {map.title}</p>
-              <p>Address: {map.addr1}</p>
-              
-            </div>
-          ))}
+      {mapInfo.map(map => (
+        <div key={map.ucSeq}>
+          <p>Title: {map.title}</p>
+          <p>Address: {map.addr1}</p>
         </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+      ))}
     </div>
   );
 };

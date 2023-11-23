@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import MapInfo from "./MapInfo";
 const { kakao: kakaoObject } = window;
 
 function KakaoMap() {
@@ -13,7 +13,11 @@ function KakaoMap() {
   }, []);
 
   return (
-    <div id="map" style={{ width: '600px', height: '100vh', margin: 'auto' }}></div>
+
+    
+      <div id="map" style={{ width: '600px', height: '100vh', margin: 'auto' }}></div>
+    
+    
   );
 }
 

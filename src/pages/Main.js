@@ -6,7 +6,7 @@ import MapInfo from "../components/MapInfo";
 const Main = () => {
   return (
     <div>
-      <Header2 />
+        <Header2 />
         <div>
           <Map />
           <MapInfo />

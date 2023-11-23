@@ -1,29 +1,18 @@
 import React from "react";
 import Header2 from "./Header2";
-import Map from "../components/Map"
-import MapList from "../components/MapList";
+import Map from "../components/Map";
+import MapInfo from "../components/MapInfo";
+
 const Main = () => {
-
-
-
-
-
-    
-    return (
-<div>      
+  return (
     <div>
-        <Header2/>
+      <Header2 />
+        <div>
+          <Map />
+          <MapInfo />
+        </div>
     </div>
-
-    <div>
-        <Map/>
-    </div>
-
-    <div>
-        <MapList/>
-    </div>
-</div>    
-    );
+  );
 };
 
 export default Main;

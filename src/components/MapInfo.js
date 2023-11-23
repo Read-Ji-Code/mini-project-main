@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MapList from "./MapList"; 
+
 const MapInfo = () => {
   const [mapInfo, setMapInfo] = useState(null);
 
@@ -28,11 +28,23 @@ const MapInfo = () => {
     fetchData();
   }, []);
 
-  return mapInfo ? (
-    <>
-      <MapList maps={mapInfo} />
-    </>
-  ) : null;
+  return (
+    <div>
+      {mapInfo ? (
+        <div>
+          {mapInfo.map(map => (
+            <div key={map.uc_seq}>
+              <p>Title : {map.title}</p>
+              <p>Address: {map.addr1}</p>
+              
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 };
 
 export default MapInfo;

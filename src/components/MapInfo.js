@@ -35,6 +35,8 @@ const MapInfo = () => {
         <div key={map.ucSeq}>
           <p>Title: {map.title}</p>
           <p>Address: {map.addr1}</p>
+          <p>LAT: {map.lat}</p>
+          <p>LNG: {map.lng}</p>
         </div>
       ))}
     </div>

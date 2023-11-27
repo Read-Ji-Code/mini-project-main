@@ -45,7 +45,7 @@ const Login3 = () => {
         <div className="max-w-md mx-auto space-y-3">
           <h3 className="text-lg font-semibold">&#128540; My Account</h3>
           <div>
-            <label className="block py-1">Your Name</label>
+            <label className="block py-1">Username</label>
             <input
               type="Name"
               defaultValue={userName}

@@ -1,59 +1,67 @@
-import React, { useState, useEffect } from "react";
-import MapInfo from "./MapInfo";
+import React, { useEffect, useState } from "react";
+import MapInfoModal from "./MapInfoModal"; // Import your modal component
 const { kakao } = window;
 
-function KakaoMap() {
-  const [modalVisible, setModalVisible] = useState(false);
+const Map2 = () => {
+  const [mapInfo, setMapInfo] = useState([]);
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(null);
 
   useEffect(() => {
-    const container = document.getElementById('map');
-    const options = {
-      center: new kakao.maps.LatLng(35.114346619720365, 129.03941996724868),
-      level: 5
+    // Fetch map data
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://10.125.121.222:8080/mapInfoEng');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setMapInfo(data);
+      } catch (error) {
+        console.error('Data fetching error:', error.message);
+      }
     };
 
-    const map = new kakao.maps.Map(container, options);
-
-    const markerPositions = [
-      { position: new kakao.maps.LatLng(35.114346619720365, 129.03941996724868), info: "Marker 1 information" },
-      // Add more positions and information as needed
-    ];
-
-    markerPositions.forEach((markerData, index) => {
-      const marker = new kakao.maps.Marker({
-        position: markerData.position
-      });
-
-      // Add a click event listener to each marker
-      kakao.maps.event.addListener(marker, 'click', () => {
-        setModalVisible(true);
-        setSelectedMarkerInfo(markerData.info);
-      });
-
-      marker.setMap(map);
-    });
-
+    fetchData();
   }, []);
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
+  useEffect(() => {
+    // Set up map and markers when mapInfo is available
+    if (mapInfo.length > 0) {
+      const container = document.getElementById('map2');
+      const options = {
+        center: new kakao.maps.LatLng(35.114346619720365, 129.03941996724868),
+        level: 5
+      };
+
+      const map = new kakao.maps.Map(container, options);
+
+      mapInfo.forEach((mapData) => {
+        const marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(mapData.lat, mapData.lng),
+        });
+
+        kakao.maps.event.addListener(marker, 'click', () => {
+          setSelectedMarkerInfo(mapData);
+        });
+
+        marker.setMap(map);
+      });
+    }
+  }, [mapInfo]);
 
   return (
     <div>
-      <div id="map" style={{ width: '600px', height: '100vh', margin: 'auto' }}></div>
+      <div id="map2" style={{ width: '100%', height: '100vh', margin:'auto' }}></div>
 
-      {modalVisible && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
-            <p>{selectedMarkerInfo}</p>
-          </div>
-        </div>
+      {/* Modal for displaying detailed information */}
+      {selectedMarkerInfo && (
+        <MapInfoModal
+          info={selectedMarkerInfo}
+          onClose={() => setSelectedMarkerInfo(null)}
+        />
       )}
     </div>
   );
-}
+};
 
-export default KakaoMap;
+export default Map2;

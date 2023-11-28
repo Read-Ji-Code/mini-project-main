@@ -51,11 +51,11 @@ const Map = () => {
 
   return (
     <div>
-      <div id="map2" style={{ width: '100%', height: '100vh', margin:'auto' }}></div>
-
+      <div id="map2" style={{ width: '100%', height: '100vh', margin:'auto'}}></div>
+      {/* <div id="map2" className='w-full h-screen m-auto -z-10'></div> */}
       {/* Modal for displaying detailed information */}
       {selectedMarkerInfo && (
-        <MapInfoModal
+        <MapInfoModal  
           info={selectedMarkerInfo}
           onClose={() => setSelectedMarkerInfo(null)}
         />

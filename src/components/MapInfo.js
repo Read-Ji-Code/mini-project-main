@@ -30,6 +30,7 @@ const MapInfo = () => {
   }, []);
 
   return (
+    
     <div>
       {mapInfo.map(map => (
         <div key={map.ucSeq}>
@@ -38,8 +39,8 @@ const MapInfo = () => {
           <p>Address: {map.addr1}</p>
           <p>Menu: {map.rprsntvmenu}</p>
           <p>Menu Info: {map.itemcntnts}</p>
-          <p>LAT: {map.lat}</p>
-          <p>LNG: {map.lng}</p>
+          {/* <p>LAT: {map.lat}</p> */}
+          {/* <p>LNG: {map.lng}</p> */}
         </div>
       ))}
     </div>

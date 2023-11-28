@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login3 = () => {
+const Login = () => {
   const [userName, setUserName] = useState("");
   const [userPass, setUserPass] = useState("");
   const navigate = useNavigate();
@@ -83,4 +83,4 @@ const Login3 = () => {
   );
 };
 
-export default Login3;
+export default Login;

@@ -10,7 +10,6 @@ const MapInfoModal = ({ info, onClose }) => {
         <p>Address: {info.addr1}</p>
         <p>Menu: {info.rprsntv_menu}</p>
         <p>Menu Info: {info.itemcntnts}</p>
-        {/* Add more information as needed */}
       </div>
     </div>
   );

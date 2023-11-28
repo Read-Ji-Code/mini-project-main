@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 
-const Header2 = () => {
+const Header = () => {
 
     const handleLogout = () => {
       localStorage.removeItem("token");
@@ -40,4 +40,4 @@ const Header2 = () => {
   );
 };
 
-export default Header2;
+export default Header;

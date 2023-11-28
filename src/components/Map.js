@@ -57,6 +57,7 @@ const Map = () => {
       {selectedMarkerInfo && (
         <MapInfoModal  
           info={selectedMarkerInfo}
+          pa
           onClose={() => setSelectedMarkerInfo(null)}
         />
       )}

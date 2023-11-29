@@ -13,7 +13,7 @@ const Header = () => {
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-between">
         <Link to="/">
           <div className="flex font-semibold items-center text-gray-900 mb-4 md:mb-0 text-3xl">
-            Busan
+            Busan Tasty Load Map
           </div>
         </Link>
         <nav className="flex space-x-4">

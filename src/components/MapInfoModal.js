@@ -1,8 +1,8 @@
-// Example MapInfoModal.js
-import React from "react";
+// import React, { useEffect } from "react";
 import Modal from "react-modal";
 
 const MapInfoModal = ({ info, onClose }) => {
+
   return (
   <div>
     <div>
@@ -21,7 +21,7 @@ const MapInfoModal = ({ info, onClose }) => {
           position: 'absolute',
           maxWidth: '400px',
           width:'100%',
-          maxHeight:'600px',
+          maxHeight:'700px',
           height:'100%',
           margin:'auto',
           border: '1px solid #ccc',

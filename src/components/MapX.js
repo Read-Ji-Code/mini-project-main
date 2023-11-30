@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import MapInfoModal from "./MapInfoModal"; // Import your modal component
 const { kakao } = window;
 
-const Map = ({xgu}) => {
+const MapX = ({xgu}) => {
   const [mapInfo, setMapInfo] = useState([]);
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(null);
 
-  console.log("확인 : " ,xgu)
   useEffect(() => {
     // Fetch map data
     const fetchData = async () => {
@@ -26,21 +25,33 @@ const Map = ({xgu}) => {
   }, []);
 
   useEffect(() => {
-    
+    let sumLat = 0;
+    let sumLng = 0;
+    let filtedLength = 0;
+    mapInfo.filter(item => item.gugunNm.trim() == xgu.trim())
+    .map(item => {
+      filtedLength += 1;
+      sumLat += item.lat
+      sumLng += item.lng
+    })
+    let avgLat = sumLat/filtedLength;
+    let avgLng = sumLng/filtedLength;
+    console.log(avgLat,avgLng)
+
     if (mapInfo.length > 0) {
       const container = document.getElementById('map2');
       const options = {
-        center: new kakao.maps.LatLng(35.114346619720365, 129.03941996724868),
+        center: new kakao.maps.LatLng(avgLat, avgLng),
         level: 5
       };
 
       const map = new kakao.maps.Map(container, options);
-
-      mapInfo.forEach((mapData) => {
-        const marker = new kakao.maps.Marker({
+      
+      mapInfo.filter(item => item.gugunNm.trim() == xgu.trim())
+      .map((mapData) => {
+        let marker = new kakao.maps.Marker({
           position: new kakao.maps.LatLng(mapData.lat, mapData.lng),
         });
-
         kakao.maps.event.addListener(marker, 'click', () => {
           setSelectedMarkerInfo(mapData);
         });
@@ -66,4 +77,4 @@ const Map = ({xgu}) => {
   );
 };
 
-export default Map;
+export default MapX;

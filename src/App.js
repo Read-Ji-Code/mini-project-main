@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import Main from './pages/Main';
 import Login from './pages/Login';
-
+import MainDetail from './pages/MainDetail';
 
 
 function App() {
@@ -13,7 +13,8 @@ function App() {
       <main className="flex flex-col h-screen">
         <Routes>
           <Route path ="/" element={<Main/>}/>
-          <Route path ="/login" element={<Login/>}/>yy
+          <Route path ="/detail/:xgu" element={<MainDetail/>}/>
+          <Route path ="/login" element={<Login/>}/>
           <Route path="/signup" element={<SignUp/>}/>
         </Routes>
       </main>

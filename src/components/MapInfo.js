@@ -1,35 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const MapInfo = ({onGugunSelect}) => {
+const MapInfo = (xgu) => {
   const [mapInfo, setMapInfo] = useState([]);
   const [select, setSelect] = useState();
   const selRef = useRef();
   const [selTag, setSelTag] = useState();
   let gugun = new Set();
 
-  const fetchData = () => {
-    fetch('http://10.125.121.222:8080/mapInfoEng', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        setMapInfo(data);
-        console.log('데이터 요청 성공:', data);
-      })
-      .catch(error => {
-        console.error('데이터 요청 실패: ', error.message);
-      });
-  };
+
   useEffect(() => {
-    
+    const fetchData = () => {
+      fetch('http://10.125.121.222:8080/mapInfoEng', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          setMapInfo(data);
+          // console.log('데이터 요청 성공:', data);
+        })
+        .catch(error => {
+           console.error('데이터 요청 실패: ', error.message);
+        });
+    };
 
     fetchData();
     
@@ -40,17 +40,17 @@ useEffect(() => {
   let guguns = mapInfo.map(item => 
     item.gugunNm
     )
-    console.log(guguns)
+  
     
   guguns.map(item => gugun.add(item));
   gugun = [...gugun];
-  console.log(gugun)
+  
   setSelect(
     <div>
-    <label>구/군 선택하세요!</label>
+    <label className="m-10 p-5">SELECT DISTRICT!</label>
       <select ref={selRef} id='sel' name='sel' onChange={handleSelChange}>
         <option value=''>-----SELECT-----</option>
-        {gugun.map(item => <option value={item}>{item}</option>)}
+        {gugun.map(item => <option key={`x${item}`} value={item}>{item}</option>)}
         
       </select>
 
@@ -74,10 +74,6 @@ useEffect(() => {
               <td>{map.addr1}</td>
               </div>
             </table>
-            
-            {/* <p>Menu Info: {map.itemcntnts}</p> */}
-            {/* <p>LAT: {map.lat}</p> */}
-            {/* <p>LNG: {map.lng}</p> */}
           </div>
           </div>
     ))
@@ -105,14 +101,11 @@ const handleSelChange = () => {
               <td>{map.addr1}</td>
               </div>
             </table>
-        {/* <p>Menu Info: {map.itemcntnts}</p> */}
-        {/* <p>LAT: {map.lat}</p> */}
-        {/* <p>LNG: {map.lng}</p> */}
       </div>
       </div>
 ))
   )
-
+window.location.href=`/detail/${selRef.current.value}`;
 }
 
     

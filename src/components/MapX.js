@@ -36,7 +36,7 @@ const MapX = ({xgu}) => {
     })
     let avgLat = sumLat/filtedLength;
     let avgLng = sumLng/filtedLength;
-    console.log(avgLat,avgLng)
+ 
 
     if (mapInfo.length > 0) {
       const container = document.getElementById('map2');

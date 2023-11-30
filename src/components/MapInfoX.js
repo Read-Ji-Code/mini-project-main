@@ -6,7 +6,7 @@ const MapInfoX = ({xgu}) => {
   const selRef = useRef();
   const [selTag, setSelTag] = useState();
   let gugun = new Set();
-  console.log(xgu)
+  
   useEffect(() => {
 
 
@@ -57,10 +57,10 @@ const MapInfoX = ({xgu}) => {
     );
     setSelTag(
       mapInfo.map((map) => (
-        <div className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg">
-          <div key={map.ucSeq}>
+        <div key={map.ucSeq} className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg">
+          <div >
             <img src={map.mainImgThumb} alt="Thumbnail" />
-            <table>
+            <table >
               <tbody>
               <tr>
                 <td>
@@ -92,10 +92,10 @@ const MapInfoX = ({xgu}) => {
             : item.gugunNm === selRef.current.value
         )
         .map((map) => (
-          <div className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg" >
+          <div key={map.ucSeq} className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg" >
             <div>
               <img src={map.mainImgThumb} alt="Thumbnail" />
-              <table key={map.ucSeq}>
+              <table >
                 <tbody>
                 <tr>
                   <td>

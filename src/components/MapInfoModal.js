@@ -1,7 +1,12 @@
 // import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Modal from "react-modal";
 
 const MapInfoModal = ({ info, onClose }) => {
+
+  useEffect(() => {
+    Modal.setAppElement('#root'); // '#root'를 애플리케이션의 루트에 해당하는 올바른 엘리먼트 선택기로 대체하세요
+  }, []);
 
   return (
   <div>
@@ -45,13 +50,13 @@ const MapInfoModal = ({ info, onClose }) => {
              <tr>
               <th><h3><p className="mb-2">{info.title}</p></h3></th>
              </tr>
-            <div className="p-2 border border-solid border-gray border-opacity-50 rounded-lg">
-              <tr>
+            
+              <tr className="p-2 border border-solid border-gray border-opacity-50 rounded-lg">
             <td><p className="mb-2">{info.itemcntnts}</p></td>
               </tr>
-           </div>
-          <div className="p-2 border border-solid border-gray border-opacity-50 rounded-lg"> 
-            <tr>
+           
+          
+            <tr className="p-2 border border-solid border-gray border-opacity-50 rounded-lg">
               <th>
                 Menu
               </th>
@@ -72,7 +77,7 @@ const MapInfoModal = ({ info, onClose }) => {
               <td>{info.usageDayWeekAndTime}</td>
             </tr>
 
-        </div>
+        
         </tbody>
         </table>
         </div>

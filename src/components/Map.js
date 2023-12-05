@@ -33,8 +33,6 @@ const Map = () => {
     let sumLng = 0;
     let filtedLength = 0;
 
-    console.log(xgu);
-
     let tm ;
     if (xgu !== "") {
       tm = mapInfo
@@ -59,7 +57,6 @@ const Map = () => {
     let avgLat = sumLat / filtedLength;
     let avgLng = sumLng / filtedLength;
 
-    console.log("MApINFO:", mapInfo);
 
     if (mapInfo.length > 0) {
       const container = document.getElementById("map2");
@@ -96,8 +93,6 @@ const Map = () => {
 
     }
   }, [mapInfo, xgu]);
-
-  // useEffect(() => {console.log("xgu", xgu)} , [xgu]);
 
   return (
     <div>

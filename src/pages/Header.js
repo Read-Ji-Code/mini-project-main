@@ -6,7 +6,7 @@ const Header = () => {
 
     const handleLogout = () => {
       localStorage.removeItem("token");
-      // window.location.href="/login";
+       window.location.href="/login";
     }
   return (
     <header className="text-gray-600 body-font from-purple-600 via-indigo-500 to-indigo-200 bg-gradient-to-br border rounded-xl shadow-2xl border-solid">

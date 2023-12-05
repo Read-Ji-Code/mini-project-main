@@ -22,6 +22,7 @@ const Login = () => {
         const auth = res.headers.get("Authorization");
         if (auth) {
           localStorage.setItem("token", auth);
+          localStorage.setItem("username", userName)
           navigate('/');
         } else {
           alert("Authentication token not found");

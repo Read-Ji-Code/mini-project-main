@@ -3,9 +3,8 @@ import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import Main from './pages/Main';
 import Login from './pages/Login';
-import Review from './components/Review';
 import { RecoilRoot } from 'recoil';
-
+import Review from './components/Review';
 function App() {
 
   return (
@@ -16,7 +15,8 @@ function App() {
           <Route path ="/" element={<Main/>}/>
           <Route path ="/login" element={<Login/>}/>
           <Route path="/signup" element={<SignUp/>}/>
-          <Route path='/review' element={<Review/>}/>
+          <Route path="/review" element={<Review/>}/>
+          
         </Routes>
       </main>
     </BrowserRouter>

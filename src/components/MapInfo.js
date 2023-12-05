@@ -11,12 +11,13 @@ const MapInfo = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch("http://10.125.121.222:8080/mapInfoEng", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      // fetch("http://10.125.121.222:8080/mapInfoEng", {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // })
+      fetch("http://10.125.121.222:8080/mapInfoEng")
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);

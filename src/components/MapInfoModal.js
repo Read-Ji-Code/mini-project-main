@@ -2,7 +2,6 @@ import { useState,useEffect } from "react";
 import Modal from "react-modal";
 
 const MapInfoModal = ({ info, onClose }) => {
-  const [showReviews, setShowReviews] = useState(false);
   const [isNewModalOpen, setNewModalOpen] = useState(false);
 
   useEffect(() => {

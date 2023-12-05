@@ -28,7 +28,7 @@ const MapX = ({xgu}) => {
     let sumLat = 0;
     let sumLng = 0;
     let filtedLength = 0;
-    mapInfo.filter(item => item.gugunNm.trim() == xgu.trim())
+    mapInfo.filter(item => item.gugunNm.trim() === xgu.trim())
     .map(item => {
       filtedLength += 1;
       sumLat += item.lat
@@ -47,7 +47,7 @@ const MapX = ({xgu}) => {
 
       const map = new kakao.maps.Map(container, options);
       
-      mapInfo.filter(item => item.gugunNm.trim() == xgu.trim())
+      mapInfo.filter(item => item.gugunNm.trim() === xgu.trim())
       .map((mapData) => {
         let marker = new kakao.maps.Marker({
           position: new kakao.maps.LatLng(mapData.lat, mapData.lng),
@@ -56,6 +56,19 @@ const MapX = ({xgu}) => {
           setSelectedMarkerInfo(mapData);
         });
 
+        const infowindow = new kakao.maps.InfoWindow({
+          content: `<img src="${mapData.mainImgThumb}" style="width:350px; height:250px; border-radius: 10px;"</div>`
+        });
+        
+        kakao.maps.event.addListener(marker, 'mouseover',
+        function() {
+          infowindow.open(map, marker); 
+        }
+        );
+
+        kakao.maps.event.addListener(marker, 'mouseout', function() {
+          infowindow.close(); 
+        });
         marker.setMap(map);
       });
     }

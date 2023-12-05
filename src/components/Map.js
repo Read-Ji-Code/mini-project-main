@@ -6,7 +6,12 @@ const Map = ({xgu}) => {
   const [mapInfo, setMapInfo] = useState([]);
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(null);
 
-  console.log("확인 : " ,xgu)
+  const handleImageClick = (mapData) => {
+    // 클릭한 이미지에 해당하는 마커 정보를 업데이트
+    setSelectedMarkerInfo(mapData);
+    // 추가로 다른 작업을 수행할 수 있습니다.
+  };
+
   useEffect(() => {
     // Fetch map data
     const fetchData = async () => {
@@ -24,7 +29,7 @@ const Map = ({xgu}) => {
 
     fetchData();
   }, []);
-
+ 
   useEffect(() => {
     
     if (mapInfo.length > 0) {
@@ -45,6 +50,19 @@ const Map = ({xgu}) => {
           setSelectedMarkerInfo(mapData);
         });
 
+        const infowindow = new kakao.maps.InfoWindow({
+          content: `<div><img src="${mapData.mainImgThumb}" style="width:350px; height:250px; border-radius: 10px;"</div>` // Customize the content as needed
+        });
+
+        kakao.maps.event.addListener(marker, 'mouseover',
+        function() {
+          infowindow.open(map, marker); 
+        }
+        );
+
+        kakao.maps.event.addListener(marker, 'mouseout', function() {
+          infowindow.close(); 
+        });
         marker.setMap(map);
       });
     }
@@ -53,8 +71,6 @@ const Map = ({xgu}) => {
   return (
     <div>
       <div id="map2" style={{ width: '100%', height: '100vh', margin:'auto'}}></div>
-      {/* <div id="map2" className='w-full h-screen m-auto -z-10'></div> */}
-      {/* Modal for displaying detailed information */}
       {selectedMarkerInfo && (
         <MapInfoModal  
           info={selectedMarkerInfo}
@@ -62,6 +78,8 @@ const Map = ({xgu}) => {
           onClose={() => setSelectedMarkerInfo(null)}
         />
       )}
+       <div>
+    </div>
     </div>
   );
 };

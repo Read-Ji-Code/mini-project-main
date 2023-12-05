@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-
+import MapInfoModal from "./MapInfoModal";
 const MapInfo = (xgu) => {
   const [mapInfo, setMapInfo] = useState([]);
   const [select, setSelect] = useState();
@@ -7,6 +7,12 @@ const MapInfo = (xgu) => {
   const [selTag, setSelTag] = useState([]);
   const gugun = useRef(new Set());
 
+  const [modalInfo, setModalInfo] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleImageClick = (info) => {
+    setModalInfo(info);
+    setModalOpen(true);
+  }
   const handleSelChange = useCallback(() => {
     setSelTag(
       mapInfo.filter(
@@ -124,6 +130,7 @@ const MapInfo = (xgu) => {
     <div className="">
       {select && select}
       <div>{selTag && selTag}</div>
+      {modalOpen && <MapInfoModal info={modalInfo} onClose={() => setModalOpen(false)} />}
     </div>
   );
 };

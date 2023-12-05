@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import Main from './pages/Main';
 import Login from './pages/Login';
-import MainDetail from './pages/MainDetail';
 import Review from './components/Review';
 import { RecoilRoot } from 'recoil';
 

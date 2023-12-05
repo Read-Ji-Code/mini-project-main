@@ -1,54 +1,13 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import MapInfoModal from "./MapInfoModal";
-const MapInfo = (xgu) => {
+import React, { useEffect, useRef, useState } from "react";
+import { AtomX } from "./AtomX";
+import { useRecoilState, useRecoilValue } from "recoil";
+
+const MapInfo = () => {
   const [mapInfo, setMapInfo] = useState([]);
   const [select, setSelect] = useState();
   const selRef = useRef();
-  const [selTag, setSelTag] = useState([]);
-  const gugun = useRef(new Set());
-
-  const [modalInfo, setModalInfo] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const handleImageClick = (info) => {
-    setModalInfo(info);
-    setModalOpen(true);
-  }
-  const handleSelChange = useCallback(() => {
-    setSelTag(
-      mapInfo.filter(
-        (item) =>
-          selRef.current.value === "" ? item : item.gugunNm === selRef.current.value
-      ).map((map) => (
-        <div
-          className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg"
-          key={map.ucSeq}
-        >
-          <img src={map.mainImgThumb} alt="Thumbnail" />
-          <table>
-            <tbody>
-              <tr>
-                <th colSpan="2">
-                  <h3>
-                    <p>{map.title}</p>
-                  </h3>
-                </th>
-              </tr>
-              <tr>
-                <th>Menu</th>
-                <td>{map.rprsntv_menu}</td>
-              </tr>
-              <tr>
-                <th>Address</th>
-                <td>{map.addr1}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      ))
-    );
-    window.location.href = `/detail/${selRef.current.value}`;
-    
-  }, [mapInfo]);
+  const [selTag, setSelTag] = useState();
+  const [xgu , setXgu] = useRecoilState(AtomX) ;
 
   useEffect(() => {
     const fetchData = () => {
@@ -66,6 +25,7 @@ const MapInfo = (xgu) => {
         })
         .then((data) => {
           setMapInfo(data);
+          console.log("데이터 요청 성공:", data);
         })
         .catch((error) => {
           console.error("데이터 요청 실패: ", error.message);
@@ -78,15 +38,15 @@ const MapInfo = (xgu) => {
   useEffect(() => {
     if (!mapInfo) return;
 
-    const guguns = mapInfo.map((item) => item.gugunNm);
-    guguns.forEach((item) => gugun.current.add(item));
+    let gugun = new Set(mapInfo.map((item) => item.gugunNm));
+    gugun = [...gugun];
 
     setSelect(
       <div>
         <label className="m-10 p-5">SELECT DISTRICT!</label>
         <select ref={selRef} id="sel" name="sel" onChange={handleSelChange}>
-          <option value="">-----SELECT-----</option>
-          {[...gugun.current].map((item) => (
+          <option value="">{xgu}</option>
+          {gugun.map((item) => (
             <option key={`x${item}`} value={item}>
               {item}
             </option>
@@ -94,43 +54,76 @@ const MapInfo = (xgu) => {
         </select>
       </div>
     );
-
+    
     setSelTag(
       mapInfo.map((map) => (
-        <div
-          className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg"
-          key={map.ucSeq}
-        >
-          <img src={map.mainImgThumb} alt="Thumbnail" />
-          <table>
-            <tbody>
-              <tr>
-                <th colSpan="2">
-                  <h3>
-                    <p>{map.title}</p>
-                  </h3>
-                </th>
-              </tr>
-              <tr>
-                <th>Menu</th>
-                <td>{map.rprsntvmenu}</td>
-              </tr>
-              <tr>
-                <th>Address</th>
-                <td>{map.addr1}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div key={map.ucSeq} className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg">
+          <div >
+            <img src={map.mainImgThumb} alt="Thumbnail" />
+            <table>
+              <tbody>
+                <tr>
+                  <td colSpan="2">
+                    <h3>
+                      <p>{map.title}</p>
+                    </h3>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Menu</th>
+                  <td>{map.rprsntvmenu}</td>
+                </tr>
+                <tr>  
+                  <th>Address</th>
+                  <td>{map.addr1}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       ))
     );
-  }, [mapInfo, handleSelChange]);
+  }, [mapInfo]);
+
+  const handleSelChange = () => {
+    setSelTag(
+      mapInfo
+        .filter((item) =>
+          selRef.current.value === "" ? item : item.gugunNm === selRef.current.value
+        )
+        .map((map) => (
+          <div key={map.ucSeq} className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg">
+            <img src={map.mainImgThumb} alt="Thumbnail" />
+            <table>
+              <tbody>
+                <tr>
+                  <td colSpan="2">
+                    <h3>
+                      <p>{map.title}</p>
+                    </h3>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Menu</th>
+                  <td>{map.rprsntvmenu}</td>
+                </tr>
+                <tr>
+                  <th>Address</th>
+                  <td>{map.addr1}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        ))
+    );
+    setXgu(selRef.current.value) ;
+    //  window.location.href = `/detail/${selRef.current.value}`;
+  };
 
   return (
     <div className="">
-      {select && select}
-      <div>{selTag && selTag}</div>
-      {modalOpen && <MapInfoModal info={modalInfo} onClose={() => setModalOpen(false)} />}
+      {select}
+      <div>{selTag}</div>
     </div>
   );
 };

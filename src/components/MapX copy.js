@@ -35,21 +35,23 @@ const MapX = () => {
 
     console.log(xgu);
 
-    let tm ;
+    
     if (xgu !== "") {
-      tm = mapInfo
+      mapInfo
         .filter((item) => item.gugunNm.trim() === xgu)
-       
-    }
-    else {
-      tm = mapInfo
+        .map((item) => {
+          filtedLength += 1;
+          sumLat += item.lat;
+          sumLng += item.lng;
+        });
+    } else {
+      mapInfo.map((item) => {
+        filtedLength += 1;
+        sumLat += item.lat;
+        sumLng += item.lng;
+      });
     }
 
-    tm.map((item) => {
-      filtedLength += 1;
-      sumLat += item.lat;
-      sumLng += item.lng;
-    });
     
     // mapInfo.map((item) => {
     //   filtedLength += 1;
@@ -71,8 +73,9 @@ const MapX = () => {
       const map = new kakao.maps.Map(container, options);
 
       // if ( xgu !== "") mapInfo = mapInfo.filter(item => item.gugunNm.trim() === xgu.trim())
-
-        tm.map((mapData) => {
+      if (xgu !== "") {
+        mapInfo.filter((item) => item.gugunNm.trim() === xgu)
+        .map((mapData) => {
           let marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(mapData.lat, mapData.lng),
           });
@@ -93,7 +96,30 @@ const MapX = () => {
           });
           marker.setMap(map);
         });
+      }
+      else {
+        mapInfo.map((mapData) => {
+          let marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(mapData.lat, mapData.lng),
+          });
+          kakao.maps.event.addListener(marker, "click", () => {
+            setSelectedMarkerInfo(mapData);
+          });
 
+          const infowindow = new kakao.maps.InfoWindow({
+            content: `<img src="${mapData.mainImgThumb}" style="width:350px; height:250px; border-radius: 10px;"</div>`,
+          });
+
+          kakao.maps.event.addListener(marker, "mouseover", function () {
+            infowindow.open(map, marker);
+          });
+
+          kakao.maps.event.addListener(marker, "mouseout", function () {
+            infowindow.close();
+          });
+          marker.setMap(map);
+        });
+      }
     }
   }, [mapInfo, xgu]);
 

@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
+import { AtomX } from "./AtomX";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-const MapInfoX = ({ xgu }) => {
+const MapInfoX = () => {
   const [mapInfo, setMapInfo] = useState([]);
   const [select, setSelect] = useState();
   const selRef = useRef();
   const [selTag, setSelTag] = useState();
+  const [xgu , setXgu] = useRecoilState(AtomX) ;
 
   useEffect(() => {
     const fetchData = () => {
@@ -102,7 +105,7 @@ const MapInfoX = ({ xgu }) => {
                 </tr>
                 <tr>
                   <th>Menu</th>
-                  <td>{map.rprsntv_menu}</td>
+                  <td>{map.rprsntvmenu}</td>
                 </tr>
                 <tr>
                   <th>Address</th>
@@ -113,13 +116,14 @@ const MapInfoX = ({ xgu }) => {
           </div>
         ))
     );
-    window.location.href = `/detail/${selRef.current.value}`;
+    setXgu(selRef.current.value) ;
+    //  window.location.href = `/detail/${selRef.current.value}`;
   };
 
   return (
     <div className="">
-      {select && select}
-      <div>{selTag && selTag}</div>
+      {select}
+      <div>{selTag}</div>
     </div>
   );
 };

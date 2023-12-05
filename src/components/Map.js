@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import MapInfoModal from "./MapInfoModal"; // Import your modal component
 const { kakao } = window;
 
-const Map = ({xgu}) => {
-  const [mapInfo, setMapInfo] = useState([]);
+const Map = () => {
+  const [mapInfo, setMapInfo] = useState();
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(null);
 
   const handleImageClick = (mapData) => {
@@ -31,7 +31,8 @@ const Map = ({xgu}) => {
   }, []);
  
   useEffect(() => {
-    
+    if (mapInfo === undefined) return ;
+    console.log("map:", mapInfo)
     if (mapInfo.length > 0) {
       const container = document.getElementById('map2');
       const options = {

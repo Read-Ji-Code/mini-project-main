@@ -58,15 +58,15 @@ const MapInfo = () => {
     
     setSelTag(
       mapInfo.map((map) => (
-        <div key={map.ucSeq} className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg">
-          <div >
-            <img src={map.mainImgThumb} alt="Thumbnail" />
+        <div key={map.ucSeq} >
+          <div className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg">
+            <img src={map.mainImgThumb} className="rounded-md mb-4" alt="Thumbnail" />
             <table>
               <tbody>
                 <tr>
                   <td colSpan="2">
                     <h3>
-                      <p>{map.title}</p>
+                      <p style={{textAlign:'center', fontWeight:'bold'}}>{map.title}</p>
                     </h3>
                   </td>
                 </tr>
@@ -94,13 +94,13 @@ const MapInfo = () => {
         )
         .map((map) => (
           <div key={map.ucSeq} className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg">
-            <img src={map.mainImgThumb} alt="Thumbnail" />
+            <img src={map.mainImgThumb} className="rounded-md mb-4" alt="Thumbnail" />
             <table>
               <tbody>
                 <tr>
                   <td colSpan="2">
                     <h3>
-                      <p>{map.title}</p>
+                      <p style={{textAlign:'center', fontWeight:'bold'}}>{map.title}</p>
                     </h3>
                   </td>
                 </tr>
@@ -118,7 +118,6 @@ const MapInfo = () => {
         ))
     );
     setXgu(selRef.current.value) ;
-    //  window.location.href = `/detail/${selRef.current.value}`;
   };
 
   return (

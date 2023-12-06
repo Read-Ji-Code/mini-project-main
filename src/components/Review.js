@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Review = () => {
+const Review = ({imageURL, title}) => {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({
     content: '',
@@ -8,11 +8,10 @@ const Review = () => {
     score: 0,
   });
   const storedUsername = localStorage.getItem('username');
-  const [username, setUsername] = useState(storedUsername || '');
 
   useEffect(() => {
     const fetchData = () => {
-      fetch("http://10.125.121.222:8080/api/reviews/selecting")
+      fetch("http://localhost:8080/api/reviews/selecting")
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -28,13 +27,6 @@ const Review = () => {
     };
 
     fetchData();
-
-    if (!storedUsername) {
-      // API 호출을 통해 사용자 이름 가져오기
-      // 예시: fetch("URL").then((response) => response.json()).then((data) => setUsername(data.username));
-    } else {
-      setUsername(storedUsername);
-    }
   }, []);
 
   const addReview = () => {
@@ -42,7 +34,6 @@ const Review = () => {
       const postData = {
         username: storedUsername,
         content: newReview.content,
-        date: new Date().toISOString(),
         score: newReview.score,
       };
 
@@ -80,7 +71,14 @@ const Review = () => {
 
   return (
     <div>
-      <p>{storedUsername} SIR, WRITE REVIEW </p>
+      <div style={{textAlign:'center'}}>
+      <p className='m-2 p-2' style={{ color:'blue'}}>THANK YOU FOR {storedUsername}'s REVIEW </p>
+      
+      <div>
+        {<img src= {imageURL} className="rounded-md mb-4" alt="Review Thumbnail"/>}
+      </div>
+      <p className="text-l font-bold mb-2">{title}</p>
+      </div>
       <div>
         <span onClick={() => handleStarClick(1)} style={{ color: newReview.score >= 1 ? 'gold' : 'black' }}>★</span>
         <span onClick={() => handleStarClick(2)} style={{ color: newReview.score >= 2 ? 'gold' : 'black' }}>★</span>
@@ -92,17 +90,15 @@ const Review = () => {
       </div>
  
       <textarea
-        rows="2"
-        cols="50"
-        placeholder="리뷰를 작성하세요."
+        rows="3"
+        cols="42"
+        placeholder="WRITE HERE."
         value={newReview.content}
         onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
       ></textarea>
 
-      
-    
       <div>
-        <h3>리뷰 목록</h3>
+        <h3>------------------REVIEW LIST------------------</h3>
         <ul>
           {reviews.map((review) => (
             <li key={review.idx}>

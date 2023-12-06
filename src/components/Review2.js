@@ -25,18 +25,23 @@ const Review = () => {
 
   return (
     <div>
-            <div>
+      <div>
         <h3>리뷰 목록</h3>
         
-        <ul>
-          {reviews.map((review) => (
+        <ul> 
+          {/* {reviews.map((review) => (
             <li key={review.idx}>
               <strong>Username:</strong> {review.username}, 
               <strong>Content:</strong> {review.content}, 
               <strong>Date:</strong> {review.date}, 
               <strong>Score:</strong> {review.score}
             </li>
-          ))}
+          ))} */}
+          <div>
+          <ReviewTable reviews={reviews} />
+          </div>
+            
+          
         </ul>
       </div>
     </div>

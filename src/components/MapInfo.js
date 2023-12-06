@@ -11,12 +11,6 @@ const MapInfo = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      // fetch("http://10.125.121.222:8080/mapInfoEng", {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // })
       fetch("http://10.125.121.222:8080/mapInfoEng")
         .then((response) => {
           if (!response.ok) {
@@ -46,7 +40,7 @@ const MapInfo = () => {
       <div>
         <label className="m-10 p-5">SELECT DISTRICT!</label>
         <select ref={selRef} id="sel" name="sel" onChange={handleSelChange}>
-          <option value="">{xgu}</option>
+          <option value="SELECT ALL">{xgu}</option>
           {gugun.map((item) => (
             <option key={`x${item}`} value={item}>
               {item}

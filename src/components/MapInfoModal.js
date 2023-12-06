@@ -86,8 +86,6 @@ const MapInfoModal = ({ info, onClose }) => {
           </table>
           </div>
           )}
-        
-        {/* {showReviews && <Review/>} */}
       </Modal>
     </div>
   );

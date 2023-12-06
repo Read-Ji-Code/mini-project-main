@@ -13,7 +13,7 @@ const Review = ({imageURL, title}) => {
   console.log(token)
   useEffect(() => {
     const fetchData = () => {
-      fetch("http://10.125.121.222:8080/api/reviews/selecting")
+      fetch("http://10.125.121.222:8080/api/public/reviews/selecting")
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -34,7 +34,7 @@ const Review = ({imageURL, title}) => {
   const addReview = () => {
     if (newReview.content.trim() !== '' && newReview.score >= 1 && newReview.score <= 5 && storedUsername) {
       const postData = {
-        
+        username:storedUsername,
         content: newReview.content,
         score: newReview.score,
       };
@@ -43,7 +43,7 @@ const Review = ({imageURL, title}) => {
         method: "POST",
         headers: {
           "Content-Type": 'application/json',
-          "Authorization" : `Bearer ${token}`
+          "Authorization" : `${token}`
         },
         body: JSON.stringify(postData),
 

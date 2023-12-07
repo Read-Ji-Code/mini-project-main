@@ -5,7 +5,7 @@ const ReviewList = ({ reviews, title }) => {
     return (
       <div>
         <h3 className='font-sans'>--------------------REVIEW LIST--------------------</h3>
-        {reviews.filter(item => item.restaurant==title)
+        {reviews.filter(item => item.restaurant===title)
         .map((review) => (
           <ReviewCard key={review.idx} review={review} />
         ))}

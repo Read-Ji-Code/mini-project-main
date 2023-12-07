@@ -8,23 +8,29 @@ const Review = ({imageURL, title}) => {
     date: '',
     score: 0,
   });
+  const [avgStar, setAvgStar] = useState(0);
   const storedUsername = localStorage.getItem('username');
   const token = localStorage.getItem('token');
 
+  // const AverageStar = (realPoint) => {
+  //   let sum = 0;
+  //   for (let i = 0; i < realPoint.length; i++) {
+  //     sum += realPoint[i].score;
+  //   }
+  //   avgStar = (sum / realPoint.length).toFixed(2);
   
-  const AverageStar = ({ review }) => {
-    let sum = 0;
-  
-    for (let i = 0; i < review.length; i++) {
-      sum += review[i].score;
+  // };
+  const AverageStar = (realPoint) => {
+ 
+    if (realPoint.length === 0) {
+      return 0; // 평균을 계산할 요소가 없으면 0을 반환
     }
-  
-    const avgStar = (sum / review.length).toFixed(2);
-
-    return (
-      <div>{avgStar}</div>
-    );
+    
+    const sum = realPoint.reduce((acc, score) => acc + score, 0);
+    const avg = (sum / realPoint.length).toFixed(2);
+    return avg;
   };
+  
   const fetchData = () => {
     fetch("http://10.125.121.222:8080/api/public/reviews/selecting")
       .then((response) => {
@@ -40,11 +46,20 @@ const Review = ({imageURL, title}) => {
         console.error("데이터 요청 실패: ", error.message);
       });
   };
-  useEffect(() => {
-    
 
+  let point = null;
+  let realPoint = null;
+
+  useEffect(()=>{
+    point = reviews.filter( item => item.restaurant ===title);
+    realPoint = point.map( point => point.score)
+    setAvgStar(AverageStar(realPoint))
+  },[reviews])
+  
+  useEffect(() => {
     fetchData();
   }, []);
+
 
   const addReview = () => {
     if (newReview.content.trim() !== '' && newReview.score >= 1 && newReview.score <= 5 && storedUsername) {
@@ -90,17 +105,15 @@ const Review = ({imageURL, title}) => {
   const handleStarClick = (value) => {
     setNewReview({ ...newReview, score: value });
   };
-
+  
   return (
     <div>
       <div style={{textAlign:'center'}}>
-      <p className='m-2 p-2' style={{ color:'blue'}}>THANK YOU FOR {storedUsername}'s REVIEW </p>
+      <div className='m-2 p-2' style={{ color:'blue'}}>THANK YOU FOR {storedUsername}'s REVIEW </div>
       
-      <div>
         {<img src= {imageURL} className="rounded-md mb-4" alt="Review Thumbnail"/>}
-      </div>
-      <p className="text-l font-bold mb-2">{title} </p>
-      <p>Average:<AverageStar review={reviews}/></p>
+      <div className="text-l font-bold mb-2">{title} </div>
+      <div>Average:{avgStar}</div>
       
       </div>
       <div className='cursor-pointer flex justify-end'>

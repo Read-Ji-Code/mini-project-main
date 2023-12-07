@@ -9,15 +9,28 @@ const ReviewList = ({ reviews }) => {
         ))}
       </div>
     );
+    
   };
+  const Star = ({review}) => {
+    const fullStars = Math.floor(review.score);
+    let stars = [];
+    for (let i =1; i <= fullStars; i++) {
+      stars.push(<span key={i} style={{color:'yellowgreen'}}>&#9733;</span>);
+    }
+    return(
+      <div>{stars}</div>
+    )
+  }
 
+  
+  
 const ReviewCard = ({ review }) => {
   return (
 <div className='border rounded-md'>
     <div>
         <div className='review-info flex justify-evenly'>
             <div>{review.username} </div>
-            <div>Score: {review.score}</div>
+            <div><Star review={review}/></div>
             <div>{review.date.slice(0, 10)}</div>
         </div>
     </div>

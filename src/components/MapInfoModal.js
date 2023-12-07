@@ -10,7 +10,8 @@ const MapInfoModal = ({ info, onClose }) => {
   const handleImageClick = () => {
     setShowReviews(true);
   }
-
+  localStorage.setItem('title',info.title)
+  console.log(localStorage.getItem('title'))
   return (
     <div>
       <Modal

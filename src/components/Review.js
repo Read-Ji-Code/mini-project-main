@@ -1,16 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import ReviewTable from './ReviewTable';
-const Review = ({imageURL, title}) => {
+
+const Review = ({imageURL, title, info}) => {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({
     content: '',
     date: '',
     score: 0,
   });
-  
+  const restTitle = localStorage.getItem('title');
   const storedUsername = localStorage.getItem('username');
   const token = localStorage.getItem('token');
-  console.log(token)
+  // console.log(token)
+
+  const AverageStar = ({ review }) => {
+    let sum = 0;
+  
+    for (let i = 0; i < review.length; i++) {
+      sum += review[i].score;
+    }
+  
+    const avgStar = (sum / review.length).toFixed(2);
+
+    return (
+      <div>{avgStar}</div>
+    );
+  };
+  
   useEffect(() => {
     const fetchData = () => {
       fetch("http://10.125.121.222:8080/api/public/reviews/selecting")
@@ -82,7 +98,8 @@ const Review = ({imageURL, title}) => {
       <div>
         {<img src= {imageURL} className="rounded-md mb-4" alt="Review Thumbnail"/>}
       </div>
-      <p className="text-l font-bold mb-2">{title} {reviews.score}</p>
+      <p className="text-l font-bold mb-2">{title} </p>
+      <p>Average:<AverageStar review={reviews}/></p>
       </div>
       <div className='cursor-pointer flex justify-end'>
         <span onClick={() => handleStarClick(1)} style={{ color: newReview.score >= 1 ? 'gold' : 'black' }}>★</span>
@@ -95,12 +112,13 @@ const Review = ({imageURL, title}) => {
       </div>
       
       <textarea className='border-green-600 border-2 rounded-md'
+      
         rows="3"
         cols="42"
         placeholder="WRITE HERE."
         value={newReview.content}
         onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
-      ></textarea>
+      >{restTitle}</textarea>
 
       <div>
         <div>

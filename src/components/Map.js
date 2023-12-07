@@ -26,6 +26,7 @@ const Map = () => {
     };
 
     fetchData();
+    
   }, []);
 
   useEffect(() => {
@@ -92,6 +93,7 @@ const Map = () => {
         });
 
     }
+  
   }, [mapInfo, xgu]);
 
   return (
@@ -105,7 +107,8 @@ const Map = () => {
       {selectedMarkerInfo && (
         <MapInfoModal
           info={selectedMarkerInfo}
-          onClose={() => setSelectedMarkerInfo(null)}
+          onClose={() => setSelectedMarkerInfo(null)
+          }
         />
       )}
     </div>

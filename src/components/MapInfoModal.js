@@ -5,13 +5,13 @@ const MapInfoModal = ({ info, onClose }) => {
   const [showReviews, setShowReviews] =useState(false);
   useEffect(() => {
     Modal.setAppElement('#root');
+    console.log(info)
   }, []);
 
   const handleImageClick = () => {
     setShowReviews(true);
   }
-  localStorage.setItem('title',info.title)
-  console.log(localStorage.getItem('title'))
+
   return (
     <div>
       <Modal

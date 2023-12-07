@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import ReviewTable from './ReviewTable';
 
-const Review = ({imageURL, title, info}) => {
+const Review = ({imageURL, title}) => {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({
     content: '',
     date: '',
     score: 0,
   });
-  const restTitle = localStorage.getItem('title');
   const storedUsername = localStorage.getItem('username');
   const token = localStorage.getItem('token');
-  // console.log(token)
 
+  
   const AverageStar = ({ review }) => {
     let sum = 0;
   
@@ -26,23 +25,23 @@ const Review = ({imageURL, title, info}) => {
       <div>{avgStar}</div>
     );
   };
-  
+  const fetchData = () => {
+    fetch("http://10.125.121.222:8080/api/public/reviews/selecting")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setReviews(data);
+      })
+      .catch((error) => {
+        console.error("데이터 요청 실패: ", error.message);
+      });
+  };
   useEffect(() => {
-    const fetchData = () => {
-      fetch("http://10.125.121.222:8080/api/public/reviews/selecting")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setReviews(data);
-        })
-        .catch((error) => {
-          console.error("데이터 요청 실패: ", error.message);
-        });
-    };
+    
 
     fetchData();
   }, []);
@@ -53,6 +52,7 @@ const Review = ({imageURL, title, info}) => {
         username:storedUsername,
         content: newReview.content,
         score: newReview.score,
+        restaurant: title,
       };
 
       fetch('http://10.125.121.222:8080/api/reviews/adding', {
@@ -79,6 +79,7 @@ const Review = ({imageURL, title, info}) => {
             score: 0,
             picture:0,
           });
+          fetchData();
         })
         .catch((error) => {
           console.error("데이터 전송 실패: ", error.message);
@@ -100,6 +101,7 @@ const Review = ({imageURL, title, info}) => {
       </div>
       <p className="text-l font-bold mb-2">{title} </p>
       <p>Average:<AverageStar review={reviews}/></p>
+      
       </div>
       <div className='cursor-pointer flex justify-end'>
         <span onClick={() => handleStarClick(1)} style={{ color: newReview.score >= 1 ? 'gold' : 'black' }}>★</span>
@@ -118,11 +120,11 @@ const Review = ({imageURL, title, info}) => {
         placeholder="WRITE HERE."
         value={newReview.content}
         onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
-      >{restTitle}</textarea>
+      ></textarea>
 
       <div>
         <div>
-        <ReviewTable reviews={reviews} />
+        <ReviewTable reviews={reviews} title={title} />
         </div>
       </div>
     </div>

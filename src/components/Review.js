@@ -8,18 +8,10 @@ const Review = ({imageURL, title}) => {
     date: '',
     score: 0,
   });
-  const [avgStar, setAvgStar] = useState(0);
+  const [avgStar, setAvgStar] = useState();
   const storedUsername = localStorage.getItem('username');
   const token = localStorage.getItem('token');
-
-  // const AverageStar = (realPoint) => {
-  //   let sum = 0;
-  //   for (let i = 0; i < realPoint.length; i++) {
-  //     sum += realPoint[i].score;
-  //   }
-  //   avgStar = (sum / realPoint.length).toFixed(2);
-  
-  // };
+  const tokenExists = !!token;
   const AverageStar = (realPoint) => {
  
     if (realPoint.length === 0) {
@@ -113,10 +105,13 @@ const Review = ({imageURL, title}) => {
       
         {<img src= {imageURL} className="rounded-md mb-4" alt="Review Thumbnail"/>}
       <div className="text-l font-bold mb-2">{title} </div>
-      <div>Average:{avgStar}</div>
+      <div>Rating Score:{avgStar}</div>
       
       </div>
+      {tokenExists && (
+        <div>
       <div className='cursor-pointer flex justify-end'>
+       
         <span onClick={() => handleStarClick(1)} style={{ color: newReview.score >= 1 ? 'gold' : 'black' }}>★</span>
         <span onClick={() => handleStarClick(2)} style={{ color: newReview.score >= 2 ? 'gold' : 'black' }}>★</span>
         <span onClick={() => handleStarClick(3)} style={{ color: newReview.score >= 3 ? 'gold' : 'black' }}>★</span>
@@ -134,13 +129,15 @@ const Review = ({imageURL, title}) => {
         value={newReview.content}
         onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
       ></textarea>
-
+    </div>
+      )}
       <div>
         <div>
         <ReviewTable reviews={reviews} title={title} />
         </div>
       </div>
-    </div>
+      </div>
+    
   );
 };
 

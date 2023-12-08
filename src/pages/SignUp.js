@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
     const [formData, setformData] = useState({
@@ -12,17 +12,74 @@ const SignUp = () => {
         telephone: ''
       });
       
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [telephoneError, setTelephoneError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const isEmailValid = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isPasswordValid = (password) => {
+    return password.length >= 8;  
+  };
+
+  const isTelephoneValid = (telephone) => {
+    const telephoneRegex = /^\d{3}-\d{4}-\d{4}$/; 
+    return telephoneRegex.test(telephone);
+  };
+
+
       const handleInputChange = (e) => {
         const { id, value } = e.target;
-        setformData({
-          ...formData,
-          [id]: value
-         });    
-      };
-     
+
+        if (id === 'email' && !isEmailValid(value)) {
+            setEmailError('Please enter a valid email address');
+          } else if (id === 'password' && !isPasswordValid(value)) {
+            setPasswordError('Password must be at least 8 characters long');
+          } else if (id === 'telephone' && !isTelephoneValid(value)) {
+            setTelephoneError('Please enter a valid telephone number (XXX-XXXX-XXXX)');
+          } else if  (id === 'confirmPassword') {
+            if (value !== formData.password) {
+              setConfirmPasswordError('Passwords do not match');
+            } else {
+              setConfirmPasswordError('');
+            }
+          } else {
+              setformData({
+              ...formData,
+              [id]: value
+              });  
+              if (id === 'email') setEmailError('');
+              if (id === 'password') setPasswordError('');
+              if (id === 'telephone') setTelephoneError('');  
+          };
+      }
+
+
       const handleSubmit = async (e) => {
         e.preventDefault();
         
+        if (!isEmailValid(formData.email)) {
+            setEmailError('Please enter a valid email address');
+            alert('Please enter a valid email address');
+            return;
+          }
+      
+          if (!isPasswordValid(formData.password)) {
+            setPasswordError('Password must be at least 8 characters long');
+            alert('Password must be at least 8 characters long');
+            return;
+          }
+      
+          if (!isTelephoneValid(formData.telephone)) {
+            setTelephoneError('Please enter a valid telephone number (XXX-XXXX-XXXX)');
+            alert('Please enter a valid telephone number (e.g., XXX-XXXX-XXXX)');
+            return;
+          }
+
+
         try {
           const response = await fetch('http://10.125.121.222:8080/signUp', {
             method: 'POST',
@@ -31,7 +88,7 @@ const SignUp = () => {
             },
             body: JSON.stringify(formData),
           });
-          console.log(formData)
+          // console.log(formData)
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
@@ -137,5 +194,6 @@ const SignUp = () => {
         </main>
     )
 }
+
 
 export default SignUp;

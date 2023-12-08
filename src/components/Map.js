@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MapInfoModal from "./MapInfoModal"; // Import your modal component
+import MapInfoModal from "./MapInfoModal";
 import { useRecoilValue } from "recoil";
 import { AtomX } from "./AtomX";
 
@@ -11,7 +11,6 @@ const Map = () => {
   const xgu = useRecoilValue(AtomX);
 
   useEffect(() => {
-    // Fetch map data
     const fetchData = async () => {
       try {
         const response = await fetch("http://10.125.121.222:8080/mapInfoEng");

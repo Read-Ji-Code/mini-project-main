@@ -104,7 +104,7 @@ const SignUp = () => {
 
     return (
         <main>
-        <div className="min-w-screen min-h-screen flex items-center justify-center px-5 py-5 from-purple-600 via-indigo-500 to-indigo-200 bg-gradient-to-br">
+        <div style={{backgroundSize:"cover", backgroundImage: "url(https://img.freepik.com/free-photo/gwangan-bridge-and-haeundae-in-busan-korea_335224-401.jpg?w=1380&t=st=1702279502~exp=1702280102~hmac=b31c805508275bdbb3180411f381767bc59f9e98fb5094ade6374927a13cabde)"}} className="bg-no-repeat min-w-screen min-h-screen flex items-center justify-center px-5 py-5 ">
             <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl overflow-hidden">
                 <div className="md:flex">
                     
@@ -172,11 +172,11 @@ const SignUp = () => {
                             </div>
                             <div className="flex -mx-3">
                                 <div className="w-full px-3 mb-5">
-                                    <button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 from-purple-600 via-indigo-500 to-indigo-200 bg-gradient-to-br text-white rounded-lg px-3 py-3 font-semibold">GO!</button>
+                                    <button className="block w-full max-w-xs mx-auto bg-blue-200 text-gray-500 rounded-lg px-3 py-3 font-semibold">GO!</button>
                                 </div>
                                 <Link to="/">
                                 <div className="w-full px-3 mb-5">
-                                    <button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 from-purple-600 via-indigo-500 to-indigo-200 bg-gradient-to-br text-white rounded-lg px-3 py-3 font-semibold">BACK!</button>
+                                    <button className="block w-full max-w-xs mx-auto bg-blue-200  text-gray-500 rounded-lg px-3 py-3 font-semibold">BACK!</button>
                                 </div>
                                 </Link>
                             </div>

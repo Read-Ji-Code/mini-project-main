@@ -49,11 +49,6 @@ const Map = () => {
       sumLng += item.lng;
     });
     
-    // mapInfo.map((item) => {
-    //   filtedLength += 1;
-    //   sumLat += item.lat;
-    //   sumLng += item.lng;
-    // });
     let avgLat = sumLat / filtedLength;
     let avgLng = sumLng / filtedLength;
 
@@ -66,8 +61,6 @@ const Map = () => {
       };
 
       const map = new kakao.maps.Map(container, options);
-
-      // if ( xgu !== "") mapInfo = mapInfo.filter(item => item.gugunNm.trim() === xgu.trim())
 
         tm.map((mapData) => {
           let marker = new kakao.maps.Marker({
@@ -101,8 +94,6 @@ const Map = () => {
         id="map2"
         style={{ width: "100%", height: "100vh", margin: "auto" }}
       ></div>
-      {/* <div id="map2" className='w-full h-screen m-auto -z-10'></div> */}
-      {/* Modal for displaying detailed information */}
       {selectedMarkerInfo && (
         <MapInfoModal
           info={selectedMarkerInfo}

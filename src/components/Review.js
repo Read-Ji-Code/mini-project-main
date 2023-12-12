@@ -6,7 +6,7 @@ const Review = ({imageURL, title}) => {
   const [newReview, setNewReview] = useState({
     content: '',
     date: '',
-    score: 0,
+    score: 3,
   });
   const [avgStar, setAvgStar] = useState();
   const storedUsername = localStorage.getItem('username');
@@ -15,7 +15,7 @@ const Review = ({imageURL, title}) => {
   const AverageStar = (realPoint) => {
  
     if (realPoint.length === 0) {
-      return 0; // 평균을 계산할 요소가 없으면 0을 반환
+      return 0;
     }
     
     const sum = realPoint.reduce((acc, score) => acc + score, 0);
@@ -101,17 +101,19 @@ const Review = ({imageURL, title}) => {
   return (
     <div>
       <div style={{textAlign:'center'}}>
-      <div className='m-2 p-2' style={{ color:'blue'}}>THANK YOU FOR {storedUsername}'s REVIEW </div>
+      <div className='m-2 p-2 text-gray-700'>THANK YOU FOR {storedUsername}'s REVIEW </div>
       
         {<img src= {imageURL} className="rounded-md mb-4" alt="Review Thumbnail"/>}
       <div className="text-l font-bold mb-2">{title} </div>
-      <div>Rating Score:{avgStar}</div>
+      <div className='text-gray-500'>Rating Score:{avgStar}</div>
       
       </div>
       {tokenExists && (
         <div>
+
+        
       <div className='cursor-pointer flex justify-end'>
-       
+  
         <span onClick={() => handleStarClick(1)} style={{ color: newReview.score >= 1 ? 'gold' : 'black' }}>★</span>
         <span onClick={() => handleStarClick(2)} style={{ color: newReview.score >= 2 ? 'gold' : 'black' }}>★</span>
         <span onClick={() => handleStarClick(3)} style={{ color: newReview.score >= 3 ? 'gold' : 'black' }}>★</span>
@@ -121,7 +123,7 @@ const Review = ({imageURL, title}) => {
 
       </div>
       
-      <textarea className='border-green-600 border-2 rounded-md'
+      <textarea className='border-green-400 border-2 rounded-md'
       
         rows="3"
         cols="42"

@@ -38,8 +38,9 @@ const MapInfo = () => {
 
     setSelect(
       <div>
-        <label className="m-10 p-5">SELECT DISTRICT!</label>
-        <select ref={selRef} id="sel" name="sel" onChange={handleSelChange}>
+        <label className="m-10 p-10 text-lg font-bold">SELECT DISTRICT!</label>
+        <select className="border border-gray-300 rounded-md m-5 p-5 focus:outline-none focus:border-blue-100" ref={selRef} id="sel" name="sel" onChange={handleSelChange}>
+          <option value="">SELECT ALL</option>
           <option value="">{xgu}</option>
           {gugun.map((item) => (
             <option key={`x${item}`} value={item}>
@@ -54,6 +55,7 @@ const MapInfo = () => {
       mapInfo.map((map) => (
         <div key={map.ucSeq} >
           <div className="p-10 m-5 border border-solid border-gray border-opacity-50 rounded-lg">
+            <div className="justify-center item-center flex-auto">
             <img src={map.mainImgThumb} className="rounded-md mb-4" alt="Thumbnail" />
             <table>
               <tbody>
@@ -74,6 +76,7 @@ const MapInfo = () => {
                 </tr>
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       ))

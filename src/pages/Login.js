@@ -41,7 +41,7 @@ const Login = () => {
     console.log(userName, userPass);
   },[userName, userPass])
   return (
-    <div className="flex items-center justify-center min-h-screen from-purple-600 via-indigo-500 to-indigo-200 bg-gradient-to-br">
+    <div className="flex items-center justify-center min-h-screen from-indigo-600 to-indigo-200 bg-gradient-to-br">
       <div className="w-full max-w-lg px-5 py-8 mx-auto bg-white border rounded-lg shadow-2xl">
         <div className="max-w-md mx-auto space-y-3">
           <h3 className="text-lg font-semibold">&#128540; My Account</h3>
@@ -66,13 +66,13 @@ const Login = () => {
           <div className="flex gap-3 pt-3 items-center">
             <button
               onClick={handleLogin}
-              className="border hover:border-indigo-600 px-4 py-2 rounded-lg text-white rounded-lg px-3 py-3 font-semibold shadow ring-1 ring-inset from-purple-600 via-indigo-500 to-indigo-200 bg-gradient-to-br"
+              className="border hover:border-indigo-600 px-4 py-2 rounded-lg bg-indigo-200 text-gray-500 rounded-lg px-3 py-3 font-semibold shadow ring-1 ring-inset"
             >
               Login
             </button>
             <Link to="/">
               <button
-                className="border hover:border-indigo-600 px-4 py-2 rounded-lg text-white rounded-lg px-3 py-3 font-semibold shadow ring-1 ring-inset from-purple-600 via-indigo-500 to-indigo-200 bg-gradient-to-br"
+                className="border hover:border-indigo-600 px-4 py-2 rounded-lg bg-indigo-200 text-gray-500 rounded-lg px-3 py-3 font-semibold shadow ring-1 ring-inset"
               >
                 Back
               </button>

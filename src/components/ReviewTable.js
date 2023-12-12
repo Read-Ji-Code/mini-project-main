@@ -4,7 +4,6 @@ const ReviewList = ({ reviews, title }) => {
     
     return (
       <div>
-        <h3 className='font-sans'>-------------------REVIEW LIST-------------------</h3>
         {reviews.filter(item => item.restaurant===title)
         .map((review) => (
           <ReviewCard key={review.idx} review={review} />
@@ -36,7 +35,7 @@ const ReviewCard = ({ review }) => {
             <div>{review.date.slice(0, 10)}</div>
         </div>
     </div>
-    <div className='border border-solid border-2 border-green-600 rounded-md'>
+    <div className='border border-solid border-2 border-green-400 rounded-md'>
         <p className='h-20'>
             <div className='m-1 p-1'>
             {review.content}
